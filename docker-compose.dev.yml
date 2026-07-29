@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
     container_name: api
     restart: always
     ports:
@@ -12,6 +13,9 @@ services:
     environment:
       - DB_HOST=postgres
       - REDIS_HOST=redis
+    volumes:
+      - ./src:/app/src
+      - /app/node_modules
     command: npm run start:dev
     depends_on:
       postgres:

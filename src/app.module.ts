@@ -12,7 +12,7 @@ import { ComponentModule } from './component/component.module';
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
-      envFilePath: `.env.${process.env.NODE_ENV || 'dev'}`,
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -26,7 +26,5 @@ import { ComponentModule } from './component/component.module';
     ProductModule,
     ComponentModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

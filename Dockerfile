@@ -1,4 +1,3 @@
-# Етап 1: Збірка додатка
 FROM node:24.18.0-slim AS builder
 
 WORKDIR /usr/src/app
@@ -9,7 +8,19 @@ RUN yarn install --frozen-lockfile
 COPY . .
 RUN yarn build
 
-# Етап 2: Продуктовий образ
+
+FROM node:24.18.0-slim AS development
+
+WORKDIR /usr/src/app
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+COPY . .
+
+CMD ["yarn", "start:dev"]
+
+
 FROM node:24.18.0-slim AS production
 
 WORKDIR /usr/src/app
