@@ -9,6 +9,7 @@ COPY . .
 RUN yarn build
 
 
+
 FROM node:24.18.0-slim AS development
 
 WORKDIR /usr/src/app
@@ -19,6 +20,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 CMD ["yarn", "start:dev"]
+
 
 
 FROM node:24.18.0-slim AS production
