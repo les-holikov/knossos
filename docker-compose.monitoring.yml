@@ -23,5 +23,21 @@ services:
     networks:
       - tds_network
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - '3001:3000'
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - tds_network
+
+networks:
+  tds_network:
+    external: true
+
 volumes:
   prometheus_data:
+  grafana_data:
