@@ -118,4 +118,4 @@ jobs:
             REDIS_PORT=${{ secrets.REDIS_PORT }}
             EOF
 
-            docker compose up -d --build
+            yarn docker:prod
