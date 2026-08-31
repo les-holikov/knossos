@@ -89,8 +89,9 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/api:latest
-            ghcr.io/${{ github.repository_owner }}/api:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/knossos-api:latest
+            ghcr.io/${{ github.repository_owner }}/knossos-api:${{ github.sha }}
+
 
        
   deploy:
