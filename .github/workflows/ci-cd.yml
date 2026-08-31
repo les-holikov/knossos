@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -92,3 +92,30 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/api:latest
             ghcr.io/${{ github.repository_owner }}/api:${{ github.sha }}
 
+       
+  deploy:
+    needs: [build-and-push]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/knossos
+            git pull origin master
+
+            cat > .env << EOF
+            PORT=${{ secrets.PORT }}
+            DB_HOST=postgres
+            DB_PORT=${{ secrets.DB_PORT }}
+            DB_DATABASE=${{ secrets.DB_DATABASE }}
+            DB_USERNAME=${{ secrets.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            REDIS_HOST=redis
+            REDIS_PORT=${{ secrets.REDIS_PORT }}
+            EOF
+
+            docker compose up -d --build
