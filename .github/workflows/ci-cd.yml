@@ -120,5 +120,5 @@ jobs:
             EOF
 
             export IMAGE_TAG=${{ github.sha }}
-            docker compose -f docker-compose.yml -f docker-compose.monitoring.yml pull
-            docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up -d
