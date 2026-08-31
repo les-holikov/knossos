@@ -1,10 +1,6 @@
-name: knossos
-
 services:
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/les-holikov/knossos-api:${IMAGE_TAG:-latest}
     container_name: api
     restart: always
     ports:
@@ -21,7 +17,6 @@ services:
         condition: service_healthy
     networks:
       - tds_network
-
   postgres:
     image: postgres:18-alpine
     container_name: postgres
@@ -39,7 +34,6 @@ services:
       retries: 5
     networks:
       - tds_network
-
   redis:
     image: redis:alpine
     container_name: redis
@@ -54,11 +48,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-
 volumes:
   postgres_data:
   redis_data:
-
 networks:
   tds_network:
     name: tds_network

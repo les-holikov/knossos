@@ -118,4 +118,6 @@ jobs:
             REDIS_PORT=${{ secrets.REDIS_PORT }}
             EOF
 
-            docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d --build
+            export IMAGE_TAG=${{ github.sha }}
+            docker compose -f docker-compose.yml -f docker-compose.monitoring.yml pull
+            docker compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d
