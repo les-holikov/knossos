@@ -2,7 +2,7 @@
 
 > A DevOps portfolio project. The application itself — a small NestJS warehouse API — is deliberately simple. The point is everything around it: containerization, CI/CD, infrastructure as code, and cloud deployment.
 
-[![CI](https://github.com/les-holikov/knossos/actions/workflows/ci.yml/badge.svg)](https://github.com/les-holikov/knossos/actions/workflows/ci.yml)
+[![CI](https://github.com/les-holikov/knossos/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/les-holikov/knossos/actions/workflows/ci-cd.yml)
 ![Docker](https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white)
 ![Terraform](https://img.shields.io/badge/terraform-AWS-7B42BC?logo=terraform&logoColor=white)
 ![NestJS](https://img.shields.io/badge/NestJS-TypeScript-E0234E?logo=nestjs&logoColor=white)
