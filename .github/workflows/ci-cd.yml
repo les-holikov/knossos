@@ -122,3 +122,4 @@ jobs:
             export IMAGE_TAG=${{ github.sha }}
             docker compose -f docker-compose.yml pull
             docker compose -f docker-compose.yml up -d
+            docker system prune -af
