@@ -11,8 +11,6 @@ services:
       - DB_HOST=postgres
       - REDIS_HOST=redis
     depends_on:
-      postgres:
-        condition: service_healthy
       redis:
         condition: service_healthy
     networks:
