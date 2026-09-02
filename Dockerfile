@@ -31,6 +31,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --production --frozen-lockfile
 
 COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/src/certs/global-bundle.pem ./dist/certs/global-bundle.pem
 
 EXPOSE 3000
 CMD ["node", "dist/main"]
