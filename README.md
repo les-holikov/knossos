@@ -21,11 +21,11 @@ flowchart TB
         CI --> Registry["Push image<br/>to GHCR"]
     end
 
-    subgraph AWS["☁️ AWS EC2 — Terraform-provisioned"]
+    subgraph AWS["☁️ AWS — Terraform-provisioned"]
         direction LR
-        Compose["docker compose<br/>pull && up -d"] --> API["api<br/>NestJS"]
-        API --> PG[("Postgres")]
+        Compose["EC2<br/>docker compose<br/>pull && up -d"] --> API["api<br/>NestJS"]
         API --> Redis[("Redis")]
+        API --> RDS[("RDS<br/>Postgres")]
     end
 
     subgraph Local["💻 Local machine"]
@@ -59,6 +59,7 @@ flowchart TB
 **Infrastructure**
 ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?logo=terraform&logoColor=white)
 ![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?logo=amazonec2&logoColor=white)
+![AWS RDS](https://img.shields.io/badge/AWS_RDS-527FFF?logo=amazonrds&logoColor=white)
 
 **Monitoring** *(run locally against the deployed host)*
 ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?logo=prometheus&logoColor=white)
@@ -68,15 +69,16 @@ flowchart TB
 
 - ✅ NestJS API with a Product / Component / ProductComponent domain (join entity with its own `quantity`, not a bare many-to-many)
 - ✅ Redis caching on read endpoints with cache invalidation on writes
-- ✅ Multi-stage Dockerfile + Docker Compose with healthchecks for Postgres and Redis
+- ✅ Multi-stage Dockerfile + Docker Compose with healthchecks
 - ✅ CI pipeline: lint, unit tests, build, image push to GitHub Container Registry
 - ✅ CD pipeline: automatic deploy to AWS EC2 on push to `master`
-- ✅ Infrastructure provisioned with Terraform (EC2, Security Group, Key Pair)
+- ✅ Infrastructure provisioned with Terraform: EC2, Security Groups, Key Pair, remote state on S3
+- ✅ PostgreSQL moved off the app server onto AWS RDS
 - ✅ Local Prometheus/Grafana monitoring of the deployed stack
 
 ## In progress
 
-- 🔄 PostgreSQL primary + replica (native streaming replication)
+- 🔄 RDS read replica for read/write separation
 - 🔄 PgBouncer / HAProxy as a connection routing layer
 - 🔄 `postgres_exporter` wired into the existing Grafana dashboards
 
@@ -105,4 +107,3 @@ terraform apply
 ## License
 
 MIT
-

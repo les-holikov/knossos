@@ -17,23 +17,7 @@ services:
         condition: service_healthy
     networks:
       - tds_network
-  postgres:
-    image: postgres:18-alpine
-    container_name: postgres
-    environment:
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
-    ports:
-      - '${DB_PORT}:5432'
-    volumes:
-      - postgres_data:/var/lib/postgresql/
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}']
-      interval: 5s
-      timeout: 3s
-      retries: 5
-    networks:
-      - tds_network
+ 
   redis:
     image: redis:alpine
     container_name: redis
@@ -49,8 +33,8 @@ services:
       timeout: 3s
       retries: 5
 volumes:
-  postgres_data:
   redis_data:
+
 networks:
   tds_network:
     name: tds_network

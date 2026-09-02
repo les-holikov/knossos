@@ -29,3 +29,21 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_outbound" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
+
+resource "aws_security_group" "rds_sg" {
+  name        = "knossos-rds-sg"
+  description = "Allow Postgres access from EC2 only"
+  vpc_id      = data.aws_vpc.default.id
+
+  tags = {
+    Name = "knossos-rds-sg"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_postgres_from_ec2" {
+  security_group_id            = aws_security_group.rds_sg.id
+  referenced_security_group_id = aws_security_group.knossos_sg.id
+  from_port                    = 5432
+  to_port                      = 5432
+  ip_protocol                  = "tcp"
+}
