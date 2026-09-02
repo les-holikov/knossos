@@ -22,6 +22,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       ssl: {
         ca: fs.readFileSync(this.sslCertPath).toString(),
         rejectUnauthorized: true,
-      },};
+      },
+    };
   }
 }
